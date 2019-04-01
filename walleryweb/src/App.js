@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { blueGrey, lightGreen, amber, red, orange } from "@material-ui/core/colors";
 import './App.css';
+import Home from './home/home';
 
-class App extends Component {
-  render() {
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: lightGreen[400]
+    },
+    secondary: {
+      main: blueGrey[100]
+    },
+    accent: {
+      main: amber['A400']
+    },
+    error: {
+      main: red[900]
+    },
+    warning: {
+      main: orange[800]
+    },
+  },
+  typography: {
+    useNextVariants: true,
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontSize: 15
+  },
+});
+
+const App = () => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <Switch>
+          <Route path='/' component={Home}/>
+        </Switch>
+      </MuiThemeProvider>
     );
-  }
-}
+};
 
 export default App;
