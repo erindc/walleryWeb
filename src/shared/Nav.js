@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import LoginDialog from '../dialogs/LoginDialog';
 
 
 const styles = {
@@ -13,36 +14,51 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
+  }
 };
 
-function ButtonAppBar(props) {
-  const { classes, authenticated } = props;
+class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      classes: props.classes,
+      authenticated: props.authenticated,
+      showLoginDialog: false
+    };
+  };
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h4" color="inherit" className={classes.grow}>
-            Wallery
-          </Typography>
-          {!authenticated ? (
-            <Button color="inherit">Login</Button>
-          ) : (
-            <Button color="inherit">Logout</Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-}
+  handleStartLogin = () => {
+    this.setState({showLoginDialog: true});
+  };
 
-ButtonAppBar.propTypes = {
+  handleCloseLogin = () => {
+    this.setState({showLoginDialog: false});
+  };
+
+  render() {
+    return (
+      <div className={this.state.classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h4" color="inherit" className={this.state.classes.grow}>
+              Wallery
+            </Typography>
+            {!this.state.authenticated ? (
+              <Button color="inherit" onClick={this.handleStartLogin}>Login</Button>
+            ) : (
+              <Button color="inherit">Logout</Button>
+            )}
+          </Toolbar>
+        </AppBar>
+        <LoginDialog open={this.state.showLoginDialog} onClose={this.handleCloseLogin} />
+      </div>
+    );
+  };
+};
+
+NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  authenticated: PropTypes.bool.isRequired
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withStyles(styles)(NavBar);

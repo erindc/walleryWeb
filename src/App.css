@@ -5,3 +5,8 @@
 .textCenter {
   text-align: center;
 }
+
+.floatRight {
+  float: right;
+  margin-bottom: 5px;
+}

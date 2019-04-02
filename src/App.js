@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { blueGrey, lightGreen, amber, red, orange } from "@material-ui/core/colors";
 import './App.css';
-import Home from './home/home';
+import Home from './pages/HomePage';
+import Gallery from './pages/GalleryPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +36,7 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <Switch>
           <Route path='/' component={Home}/>
+          <Route path='/gallery' component={Gallery}/>
         </Switch>
       </MuiThemeProvider>
     );
