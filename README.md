@@ -9,7 +9,7 @@ walleryweb is the UI for Wallery. It allows users to 'like' works of art, 'flag'
 
 Users must create an account prior to accessing any of Wallery's features.
 
-
+------
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
