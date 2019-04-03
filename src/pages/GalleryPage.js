@@ -9,10 +9,14 @@ class Gallery extends Component {
     }
   }
 
+  handleUpload = () => {
+  //TODO
+  };
+
   render() {
     return (
       <div>
-        <Nav authenticated={this.state.authenticated} />
+        <Nav authenticated={this.state.authenticated} handleUpload={this.handleUpload} />
       </div>
     );
   };

@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LoginDialog from '../dialogs/LoginDialog';
 
-
 const styles = {
   root: {
     flexGrow: 1,
@@ -48,6 +47,7 @@ class NavBar extends Component {
   };
 
   render() {
+    const { handleUpload } = this.props;
     return (
       <div className={this.state.classes.root}>
         <AppBar position="static">
@@ -58,7 +58,10 @@ class NavBar extends Component {
             {!this.state.authenticated ? (
               <Button color="inherit" onClick={this.handleStartLogin}>Login</Button>
             ) : (
-              <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+              <div>
+                <Button color="inherit" onClick={handleUpload}>Upload</Button>
+                <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+              </div>
             )}
           </Toolbar>
         </AppBar>
@@ -70,7 +73,8 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   authenticated: PropTypes.bool,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  handleUpload: PropTypes.func
 };
 
 export default withRouter(withStyles(styles)(NavBar));
