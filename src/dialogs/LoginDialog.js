@@ -6,28 +6,24 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
+const styles = {
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    paddingBottom: '10px',
+    paddingBottom: '10px'
   },
   input: {
     width: '80%',
-    margin: '10px auto 10px auto',
-  },
-});
+    margin: '10px auto 10px auto'
+  }
+}
 
-class LoginDialog extends Component {
-  handleClose = () => {
-    this.props.onClose();
-  };
+class LoginDialog extends Component { 
 
   render() {
-    const { classes, onClose, ...other } = this.props;
-
+    const { classes, onClose, handleLogin, ...other } = this.props;
     return (
-      <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
+      <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" {...other}>
         <DialogTitle id="simple-dialog-title">Login</DialogTitle>
         <div>
           <form className={classes.container} noValidate autoComplete="off">
@@ -46,7 +42,10 @@ class LoginDialog extends Component {
               }}
             />
           </form>  
-          <Button variant='contained' color='primary' className='floatRight'>Enter</Button>
+          <div className='floatRight'>
+            <Button onClick={onClose} variant='contained' style={{marginBottom:'10px', marginRight:'10px'}}>Cancel</Button>
+            <Button onClick={handleLogin} variant='contained' color='primary' style={{marginBottom:'10px', marginRight:'10px'}}>Enter</Button>
+          </div>
         </div>
       </Dialog>
     );
@@ -55,7 +54,7 @@ class LoginDialog extends Component {
 
 LoginDialog.propTypes = {
   classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(LoginDialog);
+export default withStyles(styles)(LoginDialog)

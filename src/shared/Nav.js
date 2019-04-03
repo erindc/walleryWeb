@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +23,7 @@ class NavBar extends Component {
     super(props);
     this.state = {
       classes: props.classes,
-      authenticated: props.authenticated,
+      authenticated: this.props.authenticated,
       showLoginDialog: false
     };
   };
@@ -33,6 +34,17 @@ class NavBar extends Component {
 
   handleCloseLogin = () => {
     this.setState({showLoginDialog: false});
+  };
+
+  handleAuth = () => {
+    //TODO: authentication
+    this.setState({showLoginDialog: false, authenticated: true});
+    this.props.history.push('/gallery');
+  };
+
+  handleLogout = () => {
+    this.setState({authenticated: false});
+    this.props.history.push('/');
   };
 
   render() {
@@ -46,19 +58,19 @@ class NavBar extends Component {
             {!this.state.authenticated ? (
               <Button color="inherit" onClick={this.handleStartLogin}>Login</Button>
             ) : (
-              <Button color="inherit">Logout</Button>
+              <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
             )}
           </Toolbar>
         </AppBar>
-        <LoginDialog open={this.state.showLoginDialog} onClose={this.handleCloseLogin} />
+        <LoginDialog open={this.state.showLoginDialog} onClose={this.handleCloseLogin} handleLogin={this.handleAuth} />
       </div>
     );
   };
 };
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  authenticated: PropTypes.bool.isRequired
+  authenticated: PropTypes.bool,
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(NavBar);
+export default withRouter(withStyles(styles)(NavBar));

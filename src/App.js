@@ -35,8 +35,8 @@ const App = () => {
     return (
       <MuiThemeProvider theme={theme}>
         <Switch>
-          <Route path='/' component={Home}/>
-          <Route path='/gallery' component={Gallery}/>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/gallery' component={Gallery}/>
         </Switch>
       </MuiThemeProvider>
     );

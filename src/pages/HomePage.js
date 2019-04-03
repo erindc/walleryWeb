@@ -8,8 +8,7 @@ class Home extends Component {
     super(props);
     this.state = { 
       email: '',
-      password: '',
-      authenticated: false
+      password: ''
     }
   }
 
