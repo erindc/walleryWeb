@@ -43,8 +43,8 @@ class LoginDialog extends Component {
             />
           </form>  
           <div className='floatRight mb5'>
-            <Button onClick={onClose} variant='contained' style={{marginBottom:'10px', marginRight:'10px'}}>Cancel</Button>
-            <Button onClick={handleLogin} variant='contained' color='primary' style={{marginBottom:'10px', marginRight:'10px'}}>Enter</Button>
+            <Button onClick={onClose} variant='contained' size='small' style={{marginBottom:'10px', marginRight:'10px'}}>Cancel</Button>
+            <Button onClick={handleLogin} variant='contained' size='small' color='primary' style={{marginBottom:'10px', marginRight:'10px'}}>Enter</Button>
           </div>
         </div>
       </Dialog>

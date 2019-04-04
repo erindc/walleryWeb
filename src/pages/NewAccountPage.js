@@ -123,8 +123,8 @@ class NewAccount extends Component {
             </div> 
           </CardContent>
           <CardActions className='floatRight'>
-            <Button variant='contained' onClick={this.handleCancelCreateAccount}>Cancel</Button>
-            <Button variant='contained' color='primary' onClick={this.handleStartCreateAccount}>Create</Button>
+            <Button variant='contained' size='small' onClick={this.handleCancelCreateAccount}>Cancel</Button>
+            <Button variant='contained' size='small' color='primary' onClick={this.handleStartCreateAccount}>Create</Button>
           </CardActions>
         </Card>
       </React.Fragment>
