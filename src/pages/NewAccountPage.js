@@ -10,10 +10,6 @@ import Button from '@material-ui/core/Button';
 import SnackBar from '../shared/SnackBar';
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   card: {
     minWidth: 275,
     maxWidth: '50%',
