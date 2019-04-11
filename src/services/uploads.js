@@ -9,5 +9,17 @@ export const getSignedRequest = async (file) => {
 }
 
 const uploadFile = async (file, signedRequest, url) => {
-  return await request.put(signedRequest).send(file);
+  const xhr = new XMLHttpRequest();
+  xhr.open('PUT', signedRequest);
+  xhr.onreadystatechange = () => {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        console.log('ok');
+      }
+      else{
+        alert('Could not upload file.');
+      }
+    }
+  };
+  xhr.send(file);
 }
