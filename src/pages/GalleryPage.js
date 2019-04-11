@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import ImageBox from '../shared/ImageBox';
 import UploadDialog from '../dialogs/UploadDialog';
 import SnackBar from '../shared/SnackBar';
+import { getSignedRequest } from '../services/uploads';
 
 const styles = theme => ({
   root: {
@@ -52,8 +53,15 @@ class Gallery extends Component {
   this.setState({ alert: false });
 };
 
-  handleUpload = () => {
-    //TODO
+  handleUpload = async () => {
+    const files = document.getElementById('file-input').files;
+    const file = files[0];
+    if (file == null){
+      return alert('No file selected.');
+    }
+    const result = await getSignedRequest(file);
+
+    console.log(result);
     this.setState({ showUploadDialog: false, alert: true })
   }
 

@@ -27,6 +27,7 @@ class UploadDialog extends Component {
         <DialogTitle id="simple-dialog-title">Upload</DialogTitle>
         <div className={classes.container}>
           <Input
+            id='file-input'
             className={classes.input}
             type="file"
           />
