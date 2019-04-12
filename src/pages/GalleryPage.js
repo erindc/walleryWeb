@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import ImageBox from '../shared/ImageBox';
 import UploadDialog from '../dialogs/UploadDialog';
 import SnackBar from '../shared/SnackBar';
-import { getSignedRequest } from '../services/uploads';
+import { uploadFile } from '../services/uploads';
 
 const styles = theme => ({
   root: {
@@ -33,7 +33,9 @@ class Gallery extends Component {
         { image:null, likes:4, flags:0 },
         { image:null, likes:2, flags:1 },
         { image:null, likes:1, flags:0 }
-      ]
+      ],
+      alertVariant: 'success',
+      alertMessage: 'Upload successful'
     }
   }
 
@@ -54,15 +56,18 @@ class Gallery extends Component {
 };
 
   handleUpload = async () => {
+    const formData = new FormData();
     const files = document.getElementById('file-input').files;
-    const file = files[0];
-    if (file == null){
-      return alert('No file selected.');
-    }
-    const result = await getSignedRequest(file);
+    const { name, type, data } = files[0];
+    formData.append('walleryImage', new File([data], name, { type }));
 
-    console.log(result);
-    this.setState({ showUploadDialog: false, alert: true })
+    const result = await uploadFile(formData);
+    
+    if (result.status === 201) {
+      this.setState({ showUploadDialog: false, alert: true })
+    } else {
+      this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
+    }
   }
 
   handleLike = () => {
@@ -84,7 +89,7 @@ class Gallery extends Component {
     return (
       <React.Fragment>
         <Nav authenticated={this.state.authenticated} handleUpload={this.handleStartUpload} />
-        <SnackBar open={this.state.alert} onClose={this.handleCloseAlert} variant='success' message='Upload successful' />
+        <SnackBar open={this.state.alert} onClose={this.handleCloseAlert} variant={this.state.alertVariant} message={this.state.alertMessage} />
         <div className={classes.root}>
           <Grid container spacing={24} style={{marginTop: '20px'}}>
             {images.map((image, i)=> {
