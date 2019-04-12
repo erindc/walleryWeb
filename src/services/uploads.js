@@ -4,5 +4,5 @@ export const uploadFile = async (file) => {
     method: 'post',
     body: file
   });
-  return {data: await res.json(), status: res.status};
+  return {status: res.status};
 }
