@@ -4,7 +4,7 @@ export const uploadFile = async (file) => {
     method: 'post',
     body: file
   });
-  return res;
+  return res.status;
 }
 
 export const getImages = async () => {
