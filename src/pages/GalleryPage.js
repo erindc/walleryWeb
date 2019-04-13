@@ -35,15 +35,17 @@ class Gallery extends Component {
     }
   }
 
+  getImages = async () => {
+    try {
+      const images = await getImages();
+      this.setState({images});
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   componentDidMount() {
-    (async () => {
-      try {
-        const images = await getImages();
-        this.setState({images});
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+    this.getImages();
   }
 
   handleStartUpload = () => {
@@ -68,15 +70,15 @@ class Gallery extends Component {
     const { name, type, data } = files[0];
     formData.append('walleryImage', new File([data], name, { type }));
 
-    const res = await uploadFile(formData);
-    if (res.status === 201) {
+    const status = await uploadFile(formData);
+    if (status === 201) {
       this.setState(prevState => ({
-        images: [...prevState.images, res.image[0]],
         showUploadDialog: false,
         alert: true,
         alertVariant: 'success',
         alertMessage: 'Upload successful'
       }))
+      this.getImages();
     } else {
       this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
     }
