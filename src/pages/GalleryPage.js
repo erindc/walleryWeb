@@ -71,7 +71,7 @@ class Gallery extends Component {
     const res = await uploadFile(formData);
     if (res.status === 201) {
       this.setState(prevState => ({
-        images: [...prevState.images, res.image],
+        images: [...prevState.images, res.image[0]],
         showUploadDialog: false,
         alert: true,
         alertVariant: 'success',
