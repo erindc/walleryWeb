@@ -30,9 +30,9 @@ class Gallery extends Component {
       showUploadDialog: false,
       alert: false,
       images: [
-        { image:null, likes:4, flags:0 },
-        { image:null, likes:2, flags:1 },
-        { image:null, likes:1, flags:0 }
+        { image:null, src:'https://bucketeer-fd97f80b-c9ae-47af-9785-9ee39bb37e64.s3.amazonaws.com/public/b88a2d5b-adf2-4b42-80d2-4e754cd76561000006_001.pdf', likes:4, flags:0 },
+        { image:null, src: '', likes:2, flags:1 },
+        { image:null, src: '', likes:1, flags:0 }
       ],
       alertVariant: 'success',
       alertMessage: 'Upload successful'
@@ -61,9 +61,8 @@ class Gallery extends Component {
     const { name, type, data } = files[0];
     formData.append('walleryImage', new File([data], name, { type }));
 
-    const result = await uploadFile(formData);
-    
-    if (result.status === 201) {
+    const res = await uploadFile(formData);
+    if (res.status === 201) {
       this.setState({ showUploadDialog: false, alert: true })
     } else {
       this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })

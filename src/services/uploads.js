@@ -1,8 +1,8 @@
 
 export const uploadFile = async (file) => {
-  let res = await fetch('https://wallery-api.herokuapp.com/images', {
+  let res = await fetch('http://localhost:3000/images', {
     method: 'post',
     body: file
   });
-  return {status: res.status};
+  return res;
 }
