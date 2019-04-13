@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import ImageBox from '../shared/ImageBox';
 import UploadDialog from '../dialogs/UploadDialog';
 import SnackBar from '../shared/SnackBar';
-import { uploadFile } from '../services/uploads';
+import { uploadFile, getImages } from '../services/uploads';
 
 const styles = theme => ({
   root: {
@@ -29,14 +29,21 @@ class Gallery extends Component {
       authenticated: true,
       showUploadDialog: false,
       alert: false,
-      images: [
-        { image:null, src:'https://bucketeer-fd97f80b-c9ae-47af-9785-9ee39bb37e64.s3.amazonaws.com/public/b88a2d5b-adf2-4b42-80d2-4e754cd76561000006_001.pdf', likes:4, flags:0 },
-        { image:null, src: '', likes:2, flags:1 },
-        { image:null, src: '', likes:1, flags:0 }
-      ],
-      alertVariant: 'success',
-      alertMessage: 'Upload successful'
+      images: [],
+      alertVariant: '',
+      alertMessage: ''
     }
+  }
+
+  componentDidMount() {
+    (async () => {
+      try {
+        const images = await getImages();
+        this.setState({images});
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   }
 
   handleStartUpload = () => {
@@ -63,7 +70,13 @@ class Gallery extends Component {
 
     const res = await uploadFile(formData);
     if (res.status === 201) {
-      this.setState({ showUploadDialog: false, alert: true })
+      this.setState(prevState => ({
+        images: [...prevState.images, res.image],
+        showUploadDialog: false,
+        alert: true,
+        alertVariant: 'success',
+        alertMessage: 'Upload successful'
+      }))
     } else {
       this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
     }
@@ -83,7 +96,6 @@ class Gallery extends Component {
 
   render() {
     const { classes } = this.props;
-    const { images } = this.state;
 
     return (
       <React.Fragment>
@@ -91,7 +103,7 @@ class Gallery extends Component {
         <SnackBar open={this.state.alert} onClose={this.handleCloseAlert} variant={this.state.alertVariant} message={this.state.alertMessage} />
         <div className={classes.root}>
           <Grid container spacing={24} style={{marginTop: '20px'}}>
-            {images.map((image, i)=> {
+            {this.state.images.length > 0 && this.state.images.map((image, i)=> {
               return <ImageBox image={image} handleLike={this.handleLike} handleFlag={this.handleFlag} handlePurchase={this.handlePurchase} key={i} />
             })}
           </Grid>

@@ -28,7 +28,7 @@ const ImageBox = ({ classes, image, handleLike, handleFlag, handlePurchase }) =>
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.imageCard}>
         <CardContent className={classes.content}>
-          <img src={image.src} alt='art work' />
+          <img src={image.location} alt='art work' />
         </CardContent>
         <CardActions>
           <IconButton className={classes.button} aria-label="Like" onClick={handleLike}>
