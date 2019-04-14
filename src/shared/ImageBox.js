@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
+import { prodEndpoint } from '../services/uploads';
 
 const styles = theme => ({
   imageCard: {
@@ -28,7 +29,7 @@ const ImageBox = ({ classes, image, handleLike, handleFlag, handlePurchase }) =>
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.imageCard}>
         <CardContent className={classes.content}>
-          <img src={image.url} alt='art work' />
+          <img src={prodEndpoint + image.location} alt='art work' />
         </CardContent>
         <CardActions>
           <IconButton className={classes.button} aria-label="Like" onClick={handleLike}>

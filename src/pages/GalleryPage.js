@@ -67,8 +67,7 @@ class Gallery extends Component {
   handleUpload = async () => {
     const formData = new FormData();
     const files = document.getElementById('file-input').files;
-    const { name, type, data } = files[0];
-    formData.append('walleryImage', new File([data], name, { type }));
+    formData.append('walleryImage', files[0]);
 
     const status = await uploadFile(formData);
     if (status === 201) {
