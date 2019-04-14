@@ -67,19 +67,28 @@ class Gallery extends Component {
   handleUpload = async () => {
     const formData = new FormData();
     const files = document.getElementById('file-input').files;
-    formData.append('walleryImage', files[0]);
+    const validTypes = ['image/png', 'image/pdf', 'image/jpeg']
 
-    const status = await uploadFile(formData);
-    if (status === 201) {
-      this.setState({
-        showUploadDialog: false,
-        alert: true,
-        alertVariant: 'success',
-        alertMessage: 'Upload successful'
-      })
-      this.getImages();
+    if (validTypes.includes(files[0].type)) {
+      formData.append('walleryImage', files[0]);
+
+      const status = await uploadFile(formData);
+      if (status === 201) {
+        this.setState({
+          showUploadDialog: false,
+          alert: true,
+          alertVariant: 'success',
+          alertMessage: 'Upload successful'
+        })
+        this.getImages();
+      } else {
+        this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
+      }
     } else {
-      this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
+      this.setState({
+        alert: true,
+        alertVariant: 'error',
+        alertMessage: 'File extension must be .png .pdf or .jpeg'})
     }
   }
 
