@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
-import { prodEndpoint, devEndpoint } from '../services/uploads';
+import { prodEndpoint, devEndpoint } from '../services/images';
 
 const styles = theme => ({
   imageCard: {
@@ -36,13 +36,13 @@ const ImageBox = ({ classes, image, handleLike, handleFlag, handlePurchase }) =>
           <img src={prodEndpoint + image.location} alt='art work' className={classes.image} />
         </CardContent>
         <CardActions>
-          <IconButton className={classes.button} aria-label="Like" onClick={handleLike}>
+          <IconButton className={classes.button} aria-label="Like" onClick={() => handleLike(image.image_tag)}>
             <Badge badgeContent={image.likes} color="primary">
               <ThumbUpOutlined/>
             </Badge>
           </IconButton>
           <div style={{marginLeft:'auto'}}>
-            <IconButton className={classes.button} aria-label="Flag" onClick={handleFlag}>
+            <IconButton className={classes.button} aria-label="Flag" onClick={() => handleFlag(image.image_tag)}>
               <Badge badgeContent={image.flags} color="error">
                 <Flag/>
               </Badge>

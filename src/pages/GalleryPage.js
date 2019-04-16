@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import ImageBox from '../shared/ImageBox';
 import UploadDialog from '../dialogs/UploadDialog';
 import SnackBar from '../shared/SnackBar';
-import { uploadFile, getImages } from '../services/uploads';
+import { uploadFile, getImages, likeImage, flagImage } from '../services/images';
 
 const styles = theme => ({
   root: {
@@ -92,12 +92,22 @@ class Gallery extends Component {
     }
   }
 
-  handleLike = () => {
-    //TODO
+  handleLike = async (id) => {
+    const status = await likeImage(id);
+    if (status === 204) {
+      this.getImages();
+    } else {
+      console.error(status);
+    }
   };
-
-  handleFlag = () => {
-    //TODO
+  
+  handleFlag = async (id) => {
+    const status = await flagImage(id);
+    if (status === 204) {
+      this.getImages();
+    } else {
+      console.error(status);
+    }
   };
   
   handlePurchase = () => {
