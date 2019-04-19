@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Nav from '../shared/Nav';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import ImageBox from '../shared/ImageBox';
 import UploadDialog from '../dialogs/UploadDialog';
@@ -31,7 +32,8 @@ class Gallery extends Component {
       alert: false,
       images: [],
       alertVariant: '',
-      alertMessage: ''
+      alertMessage: '',
+      currentUser: this.props.location ? this.props.location.state.currentUser : null
     }
   }
 
@@ -60,9 +62,8 @@ class Gallery extends Component {
     if (reason === 'clickaway') {
       return;
     }
-
-  this.setState({ alert: false });
-};
+    this.setState({ alert: false });
+  };
 
   handleUpload = async () => {
     const formData = new FormData();
@@ -119,7 +120,7 @@ class Gallery extends Component {
 
     return (
       <React.Fragment>
-        <Nav authenticated={this.state.authenticated} handleUpload={this.handleStartUpload} />
+        <Nav authenticated={this.state.authenticated} handleUpload={this.handleStartUpload} currentUser={this.state.currentUser} />
         <SnackBar open={this.state.alert} onClose={this.handleCloseAlert} variant={this.state.alertVariant} message={this.state.alertMessage} />
         <div className={classes.root}>
           <Grid container spacing={24} style={{marginTop: '20px'}}>
@@ -138,4 +139,4 @@ Gallery.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Gallery);
+export default withRouter(withStyles(styles)(Gallery));

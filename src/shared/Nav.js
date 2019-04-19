@@ -6,7 +6,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import LoginDialog from '../dialogs/LoginDialog';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import SnackBar from '../shared/SnackBar';
 
 const styles = {
   root: {
@@ -23,27 +24,35 @@ class NavBar extends Component {
     this.state = {
       classes: props.classes,
       authenticated: this.props.authenticated,
-      showLoginDialog: false
+      currentUser: this.props.currentUser,
+      alert: false,
+      alertVariant: '',
+      alertMessage: ''
     };
   };
 
-  handleStartLogin = () => {
-    this.setState({showLoginDialog: true});
+  successResponseGoogle = (response) => {
+    this.setState({currentUser: response.profileObj.email, authenticated: true});
+    this.props.history.push({pathname: '/gallery', state: { currentUser: this.state.currentUser }});
   };
 
-  handleCloseLogin = () => {
-    this.setState({showLoginDialog: false});
-  };
-
-  handleAuth = () => {
-    //TODO: authentication
-    this.setState({showLoginDialog: false, authenticated: true});
-    this.props.history.push('/gallery');
+  failureResponseGoogle = (response) => {
+    this.setState({
+      alert: true,
+      alertVariant: 'error',
+      alertMessage: 'Error occured during login'})
   };
 
   handleLogout = () => {
-    this.setState({authenticated: false});
+    this.setState({authenticated: false, currentUser: null});
     this.props.history.push('/');
+  };
+
+  handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ alert: false });
   };
 
   render() {
@@ -56,16 +65,33 @@ class NavBar extends Component {
               Wallery
             </Typography>
             {!this.state.authenticated ? (
-              <Button color="inherit" onClick={this.handleStartLogin}>Login</Button>
+              <GoogleLogin
+              clientId="591528315421-33u96kuhdfijtreogca3f6eoeloffq2c.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={this.successResponseGoogle}
+              onFailure={this.failureResponseGoogle}
+              cookiePolicy={'single_host_origin'}
+              render={renderProps => (
+                <Button color="inherit" onClick={renderProps.onClick}>Login</Button>
+              )}
+            />
             ) : (
               <div>
                 <Button color="inherit" onClick={handleUpload}>Upload</Button>
-                <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+                <GoogleLogout
+                  buttonText="Logout"
+                  clientId="591528315421-33u96kuhdfijtreogca3f6eoeloffq2c.apps.googleusercontent.com"
+                  onLogoutSuccess={this.handleLogout}
+                  render={renderProps => (
+                    <Button color="inherit" onClick={renderProps.onClick}>Logout</Button>
+                  )}
+                >
+                </GoogleLogout>
               </div>
             )}
           </Toolbar>
         </AppBar>
-        <LoginDialog open={this.state.showLoginDialog} onClose={this.handleCloseLogin} handleLogin={this.handleAuth} />
+        <SnackBar open={this.state.alert} onClose={this.handleCloseAlert} variant={this.state.alertVariant} message={this.state.alertMessage} />
       </div>
     );
   };
