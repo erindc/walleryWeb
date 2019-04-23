@@ -36,7 +36,7 @@ class NavBar extends Component {
     this.props.history.push({pathname: '/gallery', state: { currentUser: this.state.currentUser }});
   };
 
-  failureResponseGoogle = (response) => {
+  failureResponseGoogle = () => {
     this.setState({
       alert: true,
       alertVariant: 'error',
