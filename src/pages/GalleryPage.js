@@ -68,10 +68,6 @@ class Gallery extends Component {
 
   handleUpload = async () => {
     this.setState({btnDisabled: true});
-    await this.handleFile();
-  };
-
-  handleFile = async () => {
     const formData = new FormData();
     const files = document.getElementById('file-input').files;
     const validTypes = ['image/png', 'image/pdf', 'image/jpeg']
