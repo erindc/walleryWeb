@@ -21,7 +21,7 @@ const styles = {
 class UploadDialog extends Component { 
 
   render() {
-    const { classes, onClose, handleUpload, ...other } = this.props;
+    const { classes, onClose, handleUpload, btnDisabled, ...other } = this.props;
     return (
       <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" {...other}>
         <DialogTitle id="simple-dialog-title">Upload</DialogTitle>
@@ -34,7 +34,7 @@ class UploadDialog extends Component {
           </div>
           <div className='ml-auto mb5'>
             <Button onClick={onClose} variant='contained' size='small' style={{marginBottom:'10px', marginRight:'10px'}}>Cancel</Button>
-            <Button onClick={handleUpload} variant='contained' size='small' color='primary' style={{marginBottom:'10px', marginRight:'10px'}}>Upload</Button>
+            <Button onClick={handleUpload} disabled={btnDisabled} variant='contained' size='small' color='primary' style={{marginBottom:'10px', marginRight:'10px'}}>Upload</Button>
           </div>
       </Dialog>
     );
@@ -44,7 +44,9 @@ class UploadDialog extends Component {
 UploadDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  handleUpload: PropTypes.func.isRequired
+  handleUpload: PropTypes.func.isRequired,
+  btnDisabled: PropTypes.bool.isRequired
+
 };
 
 export default withStyles(styles)(UploadDialog)

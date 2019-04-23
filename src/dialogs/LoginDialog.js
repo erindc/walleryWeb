@@ -5,7 +5,6 @@ import Input from '@material-ui/core/Input';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
-import { GoogleLogin } from 'react-google-login';
 import { Typography } from '@material-ui/core';
 
 const styles = {
@@ -33,14 +32,6 @@ class LoginDialog extends Component {
         <DialogTitle id="simple-dialog-title">Login</DialogTitle>
         <div>
           <form className={classes.container} noValidate autoComplete="off">
-            <Typography>Log in with Google</Typography>
-            <GoogleLogin
-              clientId="674733742383-7pjiuhkoii284tp1mnoajc0lmehvmb9j.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-            />
             <Input
               placeholder="Email"
               className={classes.input}

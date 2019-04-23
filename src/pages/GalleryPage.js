@@ -33,7 +33,8 @@ class Gallery extends Component {
       images: [],
       alertVariant: '',
       alertMessage: '',
-      currentUser: this.props.location ? this.props.location.state.currentUser : null
+      currentUser: this.props.location ? this.props.location.state.currentUser : null,
+      btnDisabled: false
     }
   }
 
@@ -71,6 +72,7 @@ class Gallery extends Component {
     const validTypes = ['image/png', 'image/pdf', 'image/jpeg']
 
     if (validTypes.includes(files[0].type)) {
+      this.setState({btnDisabled: true});
       formData.append('walleryImage', files[0]);
 
       const status = await uploadFile(formData);
@@ -83,13 +85,15 @@ class Gallery extends Component {
         })
         this.getImages();
       } else {
-        this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later' })
+        this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later', btnDisabled: false })
       }
     } else {
       this.setState({
         alert: true,
         alertVariant: 'error',
-        alertMessage: 'File extension must be .png .pdf or .jpeg'})
+        alertMessage: 'File extension must be .png .pdf or .jpeg',
+        btnDisabled: false
+      })
     }
   }
 
@@ -129,7 +133,7 @@ class Gallery extends Component {
             })}
           </Grid>
         </div>
-        <UploadDialog open={this.state.showUploadDialog} onClose={this.handleCloseUpload} handleUpload={this.handleUpload} />
+        <UploadDialog open={this.state.showUploadDialog} onClose={this.handleCloseUpload} handleUpload={this.handleUpload} btnDisabled={this.state.btnDisabled} />
       </React.Fragment>
     );
   };
