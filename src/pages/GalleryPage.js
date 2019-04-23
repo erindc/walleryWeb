@@ -84,6 +84,7 @@ class Gallery extends Component {
           alertMessage: 'Upload successful'
         })
         this.getImages();
+        this.setState({btnDisabled: false});
       } else {
         this.setState({ showUploadDialog: false, alert: true, alertVariant: 'error', alertMessage: 'Error uploading, try again later', btnDisabled: false })
       }
