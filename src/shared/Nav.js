@@ -27,16 +27,23 @@ class NavBar extends Component {
       currentUser: this.props.currentUser,
       alert: false,
       alertVariant: '',
-      alertMessage: ''
+      alertMessage: '',
+      googleClientID: ''
     };
   };
+
+  componentWillMount() {
+    const googleClientID = process.env.NODE_ENV === 'production' ? '591528315421-33u96kuhdfijtreogca3f6eoeloffq2c.apps.googleusercontent.com' : '467612931825-1l19dkql83ao0ikrpg1iukm9t6ukph8u.apps.googleusercontent.com';
+    this.setState({googleClientID});
+  }
 
   successResponseGoogle = (response) => {
     this.setState({currentUser: response.profileObj.email, authenticated: true});
     this.props.history.push({pathname: '/gallery', state: { currentUser: this.state.currentUser }});
   };
 
-  failureResponseGoogle = () => {
+  failureResponseGoogle = (response) => {
+    console.log(response);
     this.setState({
       alert: true,
       alertVariant: 'error',
@@ -66,7 +73,7 @@ class NavBar extends Component {
             </Typography>
             {!this.state.authenticated ? (
               <GoogleLogin
-              clientId="591528315421-33u96kuhdfijtreogca3f6eoeloffq2c.apps.googleusercontent.com"
+              clientId={this.state.googleClientID}
               buttonText="Login"
               onSuccess={this.successResponseGoogle}
               onFailure={this.failureResponseGoogle}
@@ -80,7 +87,7 @@ class NavBar extends Component {
                 <Button color="inherit" onClick={handleUpload}>Upload</Button>
                 <GoogleLogout
                   buttonText="Logout"
-                  clientId="591528315421-33u96kuhdfijtreogca3f6eoeloffq2c.apps.googleusercontent.com"
+                  clientId={this.state.googleClientID}
                   onLogoutSuccess={this.handleLogout}
                   render={renderProps => (
                     <Button color="inherit" onClick={renderProps.onClick}>Logout</Button>

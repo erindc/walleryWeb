@@ -33,7 +33,7 @@ const ImageBox = ({ classes, image, handleLike, handleFlag, handlePurchase }) =>
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.imageCard}>
         <CardContent className={classes.content}>
-          <img src={prodEndpoint + image.location} alt='art work' className={classes.image} />
+          <img src={process.env.NODE_ENV === 'production' ? prodEndpoint + image.location : devEndpoint + image.location} alt='art work' className={classes.image} />
         </CardContent>
         <CardActions>
           <IconButton className={classes.button} aria-label="Like" onClick={() => handleLike(image.image_tag)}>

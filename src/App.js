@@ -5,7 +5,6 @@ import { blueGrey, lightGreen, amber, red, orange } from "@material-ui/core/colo
 import './App.css';
 import Home from './pages/HomePage';
 import Gallery from './pages/GalleryPage';
-import NewAccount from './pages/NewAccountPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -37,7 +36,6 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route exact path='/newAccount' component={NewAccount}/>
           <Route exact path='/gallery' component={Gallery}/>
         </Switch>
       </MuiThemeProvider>
