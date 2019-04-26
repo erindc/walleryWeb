@@ -33,7 +33,7 @@ class Gallery extends Component {
       images: [],
       alertVariant: '',
       alertMessage: '',
-      currentUser: this.props.location ? this.props.location.state.currentUser : null,
+      currentUser: this.props.location.state ? this.props.location.state.currentUser : null,
       btnDisabled: false
     }
   }

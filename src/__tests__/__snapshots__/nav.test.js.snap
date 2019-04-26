@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar renders the correct elements for authenticated 1`] = `
+<Route>
+  <Component />
+</Route>
+`;
+
+exports[`NavBar renders the correct elements for unauthenticated 1`] = `
+<Route>
+  <Component />
+</Route>
+`;

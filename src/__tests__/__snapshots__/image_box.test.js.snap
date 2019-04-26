@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageBox renders without crashing 1`] = `
+<ImageBox
+  classes={
+    Object {
+      "button": "ImageBox-button-3",
+      "content": "ImageBox-content-2",
+      "image": "ImageBox-image-4",
+      "imageCard": "ImageBox-imageCard-1",
+    }
+  }
+  handleFlag={[MockFunction]}
+  handleLike={[MockFunction]}
+  handlePurchase={[MockFunction]}
+  image={
+    Object {
+      "flags": 0,
+      "id": "id",
+      "image_tag": "tag",
+      "likes": 0,
+      "location": "somewhere",
+      "purchased": false,
+      "user_id": "user_id",
+    }
+  }
+/>
+`;
