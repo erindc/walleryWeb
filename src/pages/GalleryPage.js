@@ -117,7 +117,11 @@ class Gallery extends Component {
   };
   
   handlePurchase = () => {
-    //TODO
+    this.setState({
+      alert: true,
+      alertVariant: 'warning',
+      alertMessage: 'Purchasing is not yet implemented'
+    })
   };
 
   render() {
