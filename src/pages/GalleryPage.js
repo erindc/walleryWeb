@@ -14,12 +14,7 @@ const styles = theme => ({
     flexGrow: 1,
     marginLeft: '10px',
     marginRight: '10px'
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  }
 });
 
 
@@ -70,7 +65,7 @@ class Gallery extends Component {
     this.setState({btnDisabled: true});
     const formData = new FormData();
     const files = document.getElementById('file-input').files;
-    const validTypes = ['image/png', 'image/pdf', 'image/jpeg']
+    const validTypes = ['image/png', 'image/pdf', 'image/jpeg', 'image/jpg']
 
     if (validTypes.includes(files[0].type)) {
       formData.append('walleryImage', files[0]);
